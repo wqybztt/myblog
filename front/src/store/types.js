@@ -1,0 +1,10 @@
+export default {
+    'ERROR':'ERROR',
+    'USER_LOGIN':'USER_LOGIN',
+    'USER_LOGINOUT':'USER_LOGINOUT',
+    'USER_GET':'USER_GET',
+    'CATES':'CATES',
+    'CATE_ADD':'CATE_ADD',
+    'CATE_DELETE':'CATE_DELETE',
+    'CATE_UPDATE':'CATE_UPDATE'
+}
