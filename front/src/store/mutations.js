@@ -53,5 +53,35 @@ export default {
                 state.cates[idx].subcates[s_idx][o] = data[o];
             }
         }
+    },
+    [types.MATERIALS](state,data){
+        state.material_total = data.total
+        state.materials = data.data;
+    },
+    [types.MATERIAL_ADD](state,data){
+        state.materials.push(data);
+    },
+    [types.MATERIAL_GET](state,data){
+        let cur = _.findIndex(state.materials,item=>{ return item.id==data.id; });
+        if(cur==-1){
+            state.materials.push(data);
+        }else{
+            state.materials[cur] = data;
+        }
+    },
+    [types.MATERIAL_UPDATE](state,data){
+        let cur = _.findIndex(state.materials,item=>{ return item.id==data.id; });
+        if(cur==-1){
+            state.materials.push(data);
+        }else{
+            state.materials[cur] = data;
+        }
+    },
+    [types.MATERIAL_DELETE](state,id){
+        let cur = _.findIndex(state.materials,item=>{ return item.id==id; });
+        if(cur>=0) state.materials.splice(cur,1);
+    },
+    [types.MATERIAL_STATE_UPDATE](state,data){
+        state.material_state[data.key] = data.val;
     }
 }

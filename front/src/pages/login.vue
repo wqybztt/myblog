@@ -29,9 +29,9 @@
 <script>
     import types from '@/store/types'
     export default{
-        name: 'login',
+        name: 'login-page',
         data () {
-            const validateUsername = function(rule,username,cb){
+            const validateUsername = (rule,username,cb) => {
                 if(!username){
                     cb(new Error('用户名不能为空'));
                 }else if(username.length<6){
@@ -40,7 +40,7 @@
                     cb()
                 }
             };
-            const validatePassword = function (rule,password,cb) {
+            const validatePassword =  (rule,password,cb) => {
                 if(!password){
                     cb(new Error('密码不能为空'));
                 }else if(password.length<6){
@@ -75,7 +75,7 @@
             }
         },
         methods:{
-            login:function (name) {
+            login(name) {
                 this.$refs[name].validate(vaild => {
                     if(vaild){
                         let params = {
@@ -88,7 +88,7 @@
                     }
                 });
             },
-            reset:function (name) {
+            reset(name) {
                 this.$refs[name].resetFields();
             }
         }

@@ -3,7 +3,7 @@
 </template>
 <script>
     export default{
-        name: 'error',
+        name: 'error-page',
         data () {
             return {
             }

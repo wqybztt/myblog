@@ -8,10 +8,10 @@
     </div>
 </template>
 <script>
-    import AppHeader from './app-header';
-    import AppMenu from './app-menu';
+    import AppHeader from '@/components/app-header';
+    import AppMenu from '@/components/app-menu';
     export default{
-        name: 'home',
+        name: 'home-page',
         data () {
             return {
             }

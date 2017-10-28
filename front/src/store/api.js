@@ -25,5 +25,20 @@ export default {
     },
     [types.CATE_UPDATE](id,data){
         return INSTANCE.put('/cate/'+id,data);
+    },
+    [types.MATERIALS](conf){
+        return INSTANCE.get('/material?page='+conf.page+'&size='+conf.size);
+    },
+    [types.MATERIAL_ADD](data){
+        return INSTANCE.post('/material',data);
+    },
+    [types.MATERIAL_GET](id){
+        return INSTANCE.get('/material/'+id);
+    },
+    [types.MATERIAL_UPDATE](id,data){
+        return INSTANCE.put('/material/'+id,data);
+    },
+    [types.MATERIAL_DELETE](id){
+        return INSTANCE.delete('/material/'+id);
     }
 }

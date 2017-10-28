@@ -1,0 +1,28 @@
+<template>
+    <div>
+        <router-view></router-view>
+    </div>
+</template>
+<script>
+import types from '@/store/types';
+export default{
+    name: 'material-page',
+    data () {
+        return {
+        }
+    },
+    created(){
+        if(!this.$store.state.cates.length) this.$store.dispatch(types.CATES);
+    }
+}
+</script>
+<style scoped>
+.tool{
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+.tool li{
+    float: left;
+    margin-right: 10px
+}
+</style>

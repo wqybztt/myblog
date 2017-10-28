@@ -55,79 +55,78 @@
     </Row>
 </template>
 <script>
-import types from '@/store/types';
-export default{
-    name: 'app-cate-page',
-    data () {
-        return {
-        }
-    },
-    computed:{
-        cates(){
-            return this.$store.state.cates;
-        }
-    },
-    watch:{
-    },
-    methods:{
-        addCate(cates,pid){
-            let cate = {id:null,name:'',alias:'',pid:pid,createtime:null,edittime:null,deletetime:null};
-            if(pid==0) {
-                cate.subcates = {};
+    import types from '@/store/types';
+    export default{
+        name: 'cate-page',
+        data () {
+            return {
             }
-            cates.push(cate);
-            console.log(this.cates)
         },
-        add(cate){
-            if(!cate.name){
-                return this.$store.commit(types.ERROR,'请填写分类名称');
+        computed:{
+            cates(){
+                return this.$store.state.cates;
             }
-            if(!cate.alias){
-                return this.$store.commit(types.ERROR,'请填写分类别名');
-            }
-            let params = {
-                pid:cate.pid,
-                name:cate.name,
-                alias:cate.alias
-            };
-            this.$store.dispatch(types.CATE_ADD,params);
         },
-        cancel(cates,i){
-            cates.splice(i,1);
+        watch:{
         },
-        update(cate){
+        methods:{
+            addCate(cates,pid){
+                let cate = {id:null,name:'',alias:'',pid:pid,createtime:null,edittime:null,deletetime:null};
+                if(pid==0) {
+                    cate.subcates = [];
+                }
+                cates.push(cate);
+            },
+            add(cate){
+                if(!cate.name){
+                    return this.$store.commit(types.ERROR,'请填写分类名称');
+                }
+                if(!cate.alias){
+                    return this.$store.commit(types.ERROR,'请填写分类别名');
+                }
+                let params = {
+                    pid:cate.pid,
+                    name:cate.name,
+                    alias:cate.alias
+                };
+                this.$store.dispatch(types.CATE_ADD,params);
+            },
+            cancel(cates,i){
+                cates.splice(i,1);
+            },
+            update(cate){
 
-            if(!cate.name){
-                return this.$store.commit(types.ERROR,'请填写分类名称');
-            }
-            if(!cate.alias){
-                return this.$store.commit(types.ERROR,'请填写分类别名');
-            }
-            let data = {
-                id:cate.id,
-                name:cate.name,
-                alias:cate.alias
-            };
-            this.$store.dispatch(types.CATE_UPDATE,data);
+                if(!cate.name){
+                    return this.$store.commit(types.ERROR,'请填写分类名称');
+                }
+                if(!cate.alias){
+                    return this.$store.commit(types.ERROR,'请填写分类别名');
+                }
+                let data = {
+                    id:cate.id,
+                    name:cate.name,
+                    alias:cate.alias
+                };
+                this.$store.dispatch(types.CATE_UPDATE,data);
 
+            },
+            remove(cate){
+                this.$store.dispatch(types.CATE_DELETE,cate.id);
+            }
         },
-        remove(cate){
-            this.$store.dispatch(types.CATE_DELETE,cate.id);
+        beforeCreate(){
+            if(!this.$store.state.cates.length) this.$store.dispatch(types.CATES);
         }
-    },
-    beforeCreate(){
-        if(!this.$store.state.cates.length) this.$store.dispatch(types.CATES);
     }
-}
 </script>
 <style scoped>
-.pane,.pane-header,.pane-body,.pane-sub{
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-.pane{
-    padding-bottom: 0px;
-}
+    .pane,.pane-header,.pane-body,.pane-sub{
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+    .pane{
+        padding-bottom: 0px;
+    }
 </style>

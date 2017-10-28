@@ -1,11 +1,9 @@
 <template>
-    <div>
-        app-material-page
-    </div>
+    <div>dash</div>
 </template>
 <script>
     export default{
-        name: 'app-material-page',
+        name: 'dash-page',
         data () {
             return {
             }

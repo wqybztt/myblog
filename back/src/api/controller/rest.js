@@ -32,17 +32,28 @@ module.exports = class extends think.Controller {
     return '';
   }
   async getAction() {
+    //删除时间为空
     const cond = {
       deletetime: null
     };
     let data;
-    if (this.id) {
+    if (this.id) {//查单个
       const pk = await this.modelInstance.pk;
       cond[pk] = this.id;
       data = await this.modelInstance.where(cond).find();
       return this.success(data);
     }
-    data = await this.modelInstance.where(cond).select();
+    let order = ['createtime DESC'];
+    let page = parseInt(this.get('page'));
+    if(!page){//不分页查询全部
+      data = await this.modelInstance.where(cond).order(order).select();
+    }else{//分页查询
+      let size = parseInt(this.get('size')) || 10;
+      const pk = await this.modelInstance.pk;
+      let total = await this.modelInstance.count(pk);
+      let rows = await this.modelInstance.where(cond).order(order).limit((page-1)*size,size).select();
+      data = {page:page,size:size,total:total,data:rows};
+    }
     return this.success(data);
   }
   /**

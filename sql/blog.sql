@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.34)
 # Database: blog
-# Generation Time: 2017-10-25 12:26:29 +0000
+# Generation Time: 2017-10-28 14:20:05 +0000
 # ************************************************************
 
 
@@ -41,12 +41,39 @@ LOCK TABLES `cate` WRITE;
 
 INSERT INTO `cate` (`id`, `pid`, `name`, `alias`, `createtime`, `edittime`, `deletetime`)
 VALUES
-	(1,0,'分类1','fl1','2017-10-24 00:01:41',NULL,NULL),
-	(2,1,'分类1-1','fl1-1','2017-10-24 00:01:56',NULL,NULL),
-	(3,0,'分类2','fl2','2017-10-24 21:53:24',NULL,NULL),
-	(4,3,'分类2-1','fl2-3','2017-10-24 22:21:11',NULL,NULL);
+	(1,0,'分类1','cate1','2017-10-28 21:46:34','2017-10-28 22:08:06',NULL),
+	(2,1,'分类1-1','cate1-1','2017-10-28 21:47:14','2017-10-28 22:08:19',NULL);
 
 /*!40000 ALTER TABLE `cate` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table material
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `material`;
+
+CREATE TABLE `material` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL DEFAULT '',
+  `url` varchar(200) NOT NULL DEFAULT '',
+  `cate` int(11) NOT NULL,
+  `subcate` int(11) NOT NULL,
+  `createtime` datetime DEFAULT NULL,
+  `edittime` datetime DEFAULT NULL,
+  `deletetime` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `material` WRITE;
+/*!40000 ALTER TABLE `material` DISABLE KEYS */;
+
+INSERT INTO `material` (`id`, `title`, `url`, `cate`, `subcate`, `createtime`, `edittime`, `deletetime`)
+VALUES
+	(1,'Bootstrap 中文网','http://www.bootcss.com/',1,2,'2017-10-28 21:48:28',NULL,NULL),
+	(2,'ThinkJS 文档','https://thinkjs.org/doc/index.html',1,2,'2017-10-28 22:05:04','2017-10-28 22:17:13',NULL);
+
+/*!40000 ALTER TABLE `material` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
