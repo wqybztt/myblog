@@ -43,20 +43,10 @@ export default {
         api[types.CATE_ADD](data).then(res=>{
             let result = res.data;
             if(!result.status){
+                commit(types.CATE_STATE_UPDATE,{key:'add',val:1});
                 commit(types.CATE_UPDATE,result.data);
             }else{
-                commit(types.ERROR,result.error);
-            }
-        }).catch(error=>{
-            commit(types.ERROR,error.message);
-        });
-    },
-    [types.CATE_DELETE]({commit},id){
-        api[types.CATE_DELETE](id).then(res=>{
-            let result = res.data;
-            if(!result.status){
-                commit(types.CATE_DELETE,id);
-            }else{
+                commit(types.CATE_STATE_UPDATE,{key:'add',val:2})
                 commit(types.ERROR,result.error);
             }
         }).catch(error=>{
@@ -68,8 +58,24 @@ export default {
         api[types.CATE_UPDATE](id,data).then(res=>{
             let result = res.data;
             if(!result.status){
+                commit(types.CATE_STATE_UPDATE,{key:'edit',val:1});
                 commit(types.CATE_UPDATE,result.data);
             }else{
+                commit(types.CATE_STATE_UPDATE,{key:'edit',val:2});
+                commit(types.ERROR,result.error);
+            }
+        }).catch(error=>{
+            commit(types.ERROR,error.message);
+        });
+    },
+    [types.CATE_DELETE]({commit},id){
+        api[types.CATE_DELETE](id).then(res=>{
+            let result = res.data;
+            if(!result.status){
+                commit(types.CATE_STATE_UPDATE,{key:'del',val:1});
+                commit(types.CATE_DELETE,id);
+            }else{
+                commit(types.CATE_STATE_UPDATE,{key:'del',val:2});
                 commit(types.ERROR,result.error);
             }
         }).catch(error=>{

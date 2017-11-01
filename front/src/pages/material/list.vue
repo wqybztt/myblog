@@ -1,23 +1,38 @@
 <template>
     <div>
         <Row>
-            <Col span="12">
+            <Col span="19">
                 <Button type="primary" @click="add">添加一条记录</Button>
             </Col>
-            <Col span="12">
-                <Page :total="total" :current="page" :page-size="size" :page-size-opts="opts" @on-change="changePage" @on-page-size-change="changeSize" show-sizer  class="page"></Page>
+            <Col span="2">
+                <Select placeholder="选择大分类" v-model="cate">
+                    <Option v-for="cate in cates" :value="cate.id" :key="cate.alias">{{cate.name}}</Option>
+                </Select>
+            </Col>
+            <Col span="2" offset="1">
+                <Select placeholder="选择小分类" v-model="subcate">
+                    <Option v-for="cate in subcates" :value="cate.id" :key="cate.alias">{{cate.name}}</Option>
+                </Select>
             </Col>
         </Row>
         <Table :columns="columns" :data="list" stripe border highlight-row style="margin:15px 0px" :no-data-text="empty"></Table>
+        <Row>
+            <Col span="24">
+                <Page :total="total" :current="page" :page-size="size" :page-size-opts="opts" @on-change="changePage" @on-page-size-change="changeSize" show-sizer  class="page"></Page>
+            </Col>
+        </Row>
     </div>
 </template>
 <script>
-import types from '@/store/types';
 import {pageOpts} from '@/confing/index'
+import types from '@/store/types';
 export default{
     name: 'material-list-page',
     data () {
         return {
+            cate:'',
+            subcate:'',
+            subcates:[],
             page:pageOpts.page,
             size:pageOpts.size,
             opts:pageOpts.opts,
@@ -109,10 +124,10 @@ export default{
     },
     watch:{
         page(page){
-            this.$store.dispatch(types.MATERIALS,{page:page,size:this.size});
+            this.loaddata();
         },
         size(size){
-            this.$store.dispatch(types.MATERIALS,{page:this.page,size:size});
+            this.loaddata();
         },
         state(state){
             let msg = '删除资料“'+this.del.title+'”';
@@ -126,6 +141,25 @@ export default{
                 duration:1
             });
             this.del = {};
+        },
+        cate(id){
+            this.subcate = '';
+            let cate = this._.find(this.cates,item=>{ return item.id == id;});
+            this.subcates = cate.subcates || [];
+
+            if(this.page == 1){
+                this.loaddata();
+            }else{
+                this.page = 1;
+            }
+        },
+        subcate(id){
+            if(!id) return;
+            if(this.page == 1){
+                this.loaddata();
+            }else{
+                this.page = 1;
+            }
         }
     },
     methods:{
@@ -143,10 +177,22 @@ export default{
         changeSize(size){
             this.size = size;
             return size;
+        },
+        loaddata(){
+            let filterStr = this.getFilter();
+            let data = {page:this.page,size:this.size};
+            if(filterStr) data.filter = filterStr;
+            this.$store.dispatch(types.MATERIALS,data);
+        },
+        getFilter(){
+            let data = {};
+            if(this.cate) data.cate = this.cate;
+            if(this.subcate) data.subcate = this.subcate;
+            return this.$qs.stringify(data);
         }
     },
-    created(){
-        this.$store.dispatch(types.MATERIALS,{page:this.page,size:this.size});
+    mounted(){
+        this.loaddata();
     }
 }
 </script>

@@ -70,6 +70,7 @@ export default{
     },
     watch:{
         ['material.cate'](id){
+            this.material.subcate = '';
             if(!id) {
                 this.subcates = [];
             }else{
@@ -110,6 +111,8 @@ export default{
     },
     created(){
         this.$store.commit(types.MATERIAL_STATE_UPDATE,{key:'edit',val:0})
+    },
+    mounted(){
         if(this.material.id){
             let cate = this._.find(this.cates,item=>{ return item.id==this.material.cate; });
             this.subcates = cate.subcates;

@@ -54,8 +54,11 @@ export default {
             }
         }
     },
+    [types.CATE_STATE_UPDATE](state,data){
+        state.cate_state[data.key] = data.val;
+    },
     [types.MATERIALS](state,data){
-        state.material_total = data.total
+        state.material_total = data.total;
         state.materials = data.data;
     },
     [types.MATERIAL_ADD](state,data){

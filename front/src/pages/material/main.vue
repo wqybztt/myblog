@@ -11,7 +11,7 @@ export default{
         return {
         }
     },
-    created(){
+    beforeCreate(){
         if(!this.$store.state.cates.length) this.$store.dispatch(types.CATES);
     }
 }

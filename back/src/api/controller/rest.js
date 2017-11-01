@@ -1,6 +1,7 @@
 const path = require('path');
 const assert = require('assert');
 const moment = require('moment')
+const qs = require('querystring');
 module.exports = class extends think.Controller {
   constructor(ctx) {
     super(ctx);
@@ -33,7 +34,7 @@ module.exports = class extends think.Controller {
   }
   async getAction() {
     //删除时间为空
-    const cond = {
+    let cond = {
       deletetime: null
     };
     let data;
@@ -45,12 +46,21 @@ module.exports = class extends think.Controller {
     }
     let order = ['createtime DESC'];
     let page = parseInt(this.get('page'));
+
+    //过滤选项
+    let filter = this.get('filter');
+    filter = filter ? qs.parse(filter) :{};
+    cond = Object.assign(cond,filter);
+    
     if(!page){//不分页查询全部
       data = await this.modelInstance.where(cond).order(order).select();
     }else{//分页查询
       let size = parseInt(this.get('size')) || 10;
       const pk = await this.modelInstance.pk;
-      let total = await this.modelInstance.count(pk);
+      let total = await this.modelInstance.where(cond).count(pk);
+      //修正page
+      let maxPage = parseInt(total/size)+1;
+      if(page > maxPage) page = maxPage;
       let rows = await this.modelInstance.where(cond).order(order).limit((page-1)*size,size).select();
       data = {page:page,size:size,total:total,data:rows};
     }

@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 //分类分组
 export const catesGroup = list => {
+    list = _.orderBy(list,'createtime','asc');
     var cates = [];
     _.forEach(list,function (item) {
         if(item.pid==0){

@@ -73,6 +73,7 @@ export default{
     },
     watch:{
         ['material.cate'](id){
+            ths.material.subcate = '';
             let cate = this._.find(this.cates,item=>{
                 return item.id == id;
             });

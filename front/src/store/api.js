@@ -27,7 +27,7 @@ export default {
         return INSTANCE.put('/cate/'+id,data);
     },
     [types.MATERIALS](conf){
-        return INSTANCE.get('/material?page='+conf.page+'&size='+conf.size);
+        return INSTANCE.get('/material',{params:conf});
     },
     [types.MATERIAL_ADD](data){
         return INSTANCE.post('/material',data);

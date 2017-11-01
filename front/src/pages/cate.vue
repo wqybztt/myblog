@@ -65,9 +65,63 @@
         computed:{
             cates(){
                 return this.$store.state.cates;
+            },
+            state(){
+                return this.$store.state.cate_state;
             }
         },
         watch:{
+            ['state.add'](sta){
+                let msg = '添加分类';
+                if(sta == 1){
+                    msg += '成功';
+                    this.$Notice.success({
+                        desc:msg,
+                        duration:1
+                    });
+                }else if(sta == 2){
+                    msg += '失败';
+                    this.$Notice.error({
+                        desc:msg,
+                        duration:1
+                    });
+                }
+                this.$store.commit(types.CATE_STATE_UPDATE,{key:'add',val:0});
+            },
+            ['state.edit'](sta){
+                let msg = '修改分类成功';
+                if(sta == 1){
+                    msg +=  '成功';
+                    this.$Notice.success({
+                        desc:msg,
+                        duration:1
+                    });
+                }else if(sta == 2){
+                    msg += '失败';
+                    this.$Notice.error({
+                        desc:msg,
+                        duration:1
+                    });
+                }
+                this.$store.commit(types.CATE_STATE_UPDATE,{key:'edit',val:0});
+            },
+            ['state.del'](sta){
+                let msg = '删除分类成功';
+                if(sta == 1){
+                    msg +=  '成功';
+                    this.$Notice.success({
+                        desc:msg,
+                        duration:1
+                    });
+                }else if(sta == 2){
+                    msg += '失败';
+                    this.$Notice.error({
+                        desc:msg,
+                        duration:1
+                    });
+                }
+                this.$store.commit(types.CATE_STATE_UPDATE,{key:'del',val:0});
+            }
         },
         methods:{
             addCate(cates,pid){
@@ -108,11 +162,10 @@
                     alias:cate.alias
                 };
                 this.$store.dispatch(types.CATE_UPDATE,data);
-
             },
             remove(cate){
                 this.$store.dispatch(types.CATE_DELETE,cate.id);
-            }
+            },
         },
         beforeCreate(){
             if(!this.$store.state.cates.length) this.$store.dispatch(types.CATES);
