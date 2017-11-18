@@ -40,5 +40,20 @@ export default {
     },
     [types.MATERIAL_DELETE](id){
         return INSTANCE.delete('/material/'+id);
+    },
+    [types.ARTICLE_ADD](data){
+        return INSTANCE.post('/article',data);
+    },
+    [types.ARTICLE_GET](id){
+        return INSTANCE.get('/article/'+id);
+    },
+    [types.ARTICLE_UPDATE](id,data){
+        return INSTANCE.put('/article/'+id,data);
+    },
+    [types.ARTICLES](conf){
+        return INSTANCE.get('/article',{params:conf});
+    },
+    [types.ARTICLE_DELETE](id){
+        return INSTANCE.delete('/article/'+id);
     }
 }

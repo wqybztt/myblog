@@ -149,5 +149,73 @@ export default {
         }).catch(error=>{
             commit(types.ERROR,error.message);
         });
+    },
+    [types.ARTICLES]({commit},conf){
+        api[types.ARTICLES](conf).then(res=>{
+            let result = res.data;
+            if(!result.status){
+                commit(types.ARTICLES,result.data);
+            }else{
+                commit(types.ERROR,result.error);
+            }
+        }).catch(error=>{
+            commit(types.ERROR,error.message);
+        });
+    },
+    [types.ARTICLE_ADD]({commit},data){
+        api[types.ARTICLE_ADD](data).then(res=>{
+            let result = res.data;
+            if(!result.status){
+                commit(types.ARTICLE_STATE_UPDATE,{key:'add',val:1});
+                commit(types.MATERIAL_ADD,result.data);
+            }else{
+                commit(types.ARTICLE_STATE_UPDATE,{key:'add',val:2});
+                commit(types.ERROR,result.error);
+            }
+        }).catch(error=>{
+            commit(types.ERROR,error.message);
+        });
+    },
+    [types.ARTICLE_GET]({commit},id){
+        api[types.ARTICLE_GET](id).then(res=>{
+            let result = res.data;
+            if(!result.status){
+                commit(types.ARTICLE_GET,result.data);
+            }else{
+                commit(types.ERROR,'未查到ID为'+id+'的资料信息');
+            }
+        }).catch(error=>{
+            commit(types.ERROR,error.message);
+        });
+    },
+    [types.ARTICLE_UPDATE]({commit},data){
+        let id = data.id;
+        api[types.ARTICLE_UPDATE](id,data).then(res=>{
+            let result = res.data;
+            if(!result.status){
+                commit(types.ARTICLE_STATE_UPDATE,{key:'edit',val:1});
+                commit(types.ARTICLE_UPDATE,result.data);
+            }else{
+                commit(types.ARTICLE_STATE_UPDATE,{key:'edit',val:2});
+                commit(types.ERROR,result.error);
+            }
+        }).catch(error=>{
+            commit(types.ERROR,error.message);
+        });
+    },
+    [types.ARTICLE_DELETE]({commit},id){
+        api[types.ARTICLE_DELETE](id).then(res=>{
+            let result = res.data;
+            if(!result.status){
+                commit(types.ARTICLE_STATE_UPDATE,{key:'del',val:1});
+                commit(types.ARTICLE_DELETE,id);
+            }else{
+                commit(types.ARTICLE_STATE_UPDATE,{key:'del',val:2});
+                commit(types.ERROR,result.error);
+            }
+
+        }).catch(error=>{
+            commit(types.ERROR,error.message);
+        });
     }
 }

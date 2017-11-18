@@ -12,14 +12,14 @@
                     <Row>
                         <Col span="11">
                             <FormItem prop="cate">   
-                                <Select placeholder="选择大分类" v-model="material.cate">
+                                <Select placeholder="选择大分类" v-model="material.cate" :filterable="true">
                                     <Option v-for="cate in cates" :value="cate.id" :key="cate.alias">{{cate.name}}</Option>
                                 </Select>
                             </FormItem> 
                         </Col>
-                        <Col span="11" offset="2" v-show="subcates.length">
+                        <Col span="11" offset="2">
                             <FormItem prop="subcate">
-                                <Select placeholder="选择小分类" v-model="material.subcate">
+                                <Select placeholder="选择小分类" v-model="material.subcate" :filterable="true">
                                     <Option v-for="cate in subcates" :value="cate.id" :key="cate.alias">{{cate.name}}</Option>
                                 </Select>
                             </FormItem> 
@@ -73,7 +73,6 @@ export default{
     },
     watch:{
         ['material.cate'](id){
-            ths.material.subcate = '';
             let cate = this._.find(this.cates,item=>{
                 return item.id == id;
             });

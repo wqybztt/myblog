@@ -38,6 +38,13 @@ module.exports = {
         pathRewrite: {
           '^/api': '/'   //需要rewrite重写的,
         }
+      },
+      '/static/upload':{
+        target: 'http://127.0.0.1:8088/static/upload',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/static/upload': '/'   //需要rewrite重写的,
+        }
       }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"

@@ -7,8 +7,9 @@ import store from  './store'
 
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
-
 Vue.use(iView)
+
+import 'font-awesome/css/font-awesome.css'
 
 import plugins from './plugins'
 Vue.use(plugins)

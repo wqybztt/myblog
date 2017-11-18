@@ -5,12 +5,12 @@
                 <Button type="primary" @click="add">添加一条记录</Button>
             </Col>
             <Col span="2">
-                <Select placeholder="选择大分类" v-model="cate">
+                <Select placeholder="选择大分类" v-model="cate" :filterable="true">
                     <Option v-for="cate in cates" :value="cate.id" :key="cate.alias">{{cate.name}}</Option>
                 </Select>
             </Col>
             <Col span="2" offset="1">
-                <Select placeholder="选择小分类" v-model="subcate">
+                <Select placeholder="选择小分类" v-model="subcate" :filterable="true">
                     <Option v-for="cate in subcates" :value="cate.id" :key="cate.alias">{{cate.name}}</Option>
                 </Select>
             </Col>
@@ -24,7 +24,7 @@
     </div>
 </template>
 <script>
-import {pageOpts} from '@/confing/index'
+import {pageOpts} from '@/confing/index';
 import types from '@/store/types';
 export default{
     name: 'material-list-page',

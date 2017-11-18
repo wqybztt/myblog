@@ -17,12 +17,4 @@ export default{
 }
 </script>
 <style scoped>
-.tool{
-    overflow: hidden;
-    margin-bottom: 10px;
-}
-.tool li{
-    float: left;
-    margin-right: 10px
-}
 </style>

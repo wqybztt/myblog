@@ -15,5 +15,12 @@ export default {
         add:0,
         edit:0,
         del:0
+    },
+    article_total:0,
+    articles:[],
+    article_state:{
+        add:0,
+        edit:0,
+        del:0
     }
 }

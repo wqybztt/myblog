@@ -59,7 +59,7 @@ export default{
     },
     computed:{
         material(){
-            return this._.find(this.$store.state.materials,item=>{ return item.id==this.$route.params.id; }) ||{}
+            return this._.find(this.$store.state.materials,item=>{ return item.id==this.$route.params.id; }) ||{};
         },
         cates(){
             return this.$store.state.cates;
@@ -70,15 +70,10 @@ export default{
     },
     watch:{
         ['material.cate'](id){
-            this.material.subcate = '';
-            if(!id) {
-                this.subcates = [];
-            }else{
-                let cate = this._.find(this.cates,item=>{
-                    return item.id == id;
-                });
-                this.subcates = cate.subcates || [];
-            }
+            let cate = this._.find(this.cates,item=>{
+                return item.id == id;
+            });
+            this.subcates = cate.subcates || [];
         },
         state(state){
             let msg = '修改资料“'+this.material.title+'”';

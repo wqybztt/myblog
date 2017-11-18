@@ -26,6 +26,9 @@
                 },{
                     title:'资料管理',
                     href:'/material'
+                },{
+                    title:'文章管理',
+                    href:'/article'
                 }]
             }
         }

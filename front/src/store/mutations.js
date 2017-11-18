@@ -86,5 +86,32 @@ export default {
     },
     [types.MATERIAL_STATE_UPDATE](state,data){
         state.material_state[data.key] = data.val;
+    },
+    [types.ARTICLES](state,data){
+        state.article_total = data.total;
+        state.articles = data.data;
+    },
+    [types.ARTICLE_GET](state,data){
+        let cur = _.findIndex(state.articles,item=>{ return item.id==data.id; });
+        if(cur==-1){
+            state.articles.push(data);
+        }else{
+            state.articles[cur] = data;
+        }
+    },
+    [types.ARTICLE_UPDATE](state,data){
+        let cur = _.findIndex(state.articles,item=>{ return item.id==data.id; });
+        if(cur==-1){
+            state.articles.push(data);
+        }else{
+            state.articles[cur] = data;
+        }
+    },
+    [types.ARTICLE_STATE_UPDATE](state,data){
+        state.article_state[data.key] = data.val;
+    },
+    [types.ARTICLE_DELETE](state,id){
+        let cur = _.findIndex(state.articles,item=>{ return item.id==id; });
+        if(cur>=0) state.articles.splice(cur,1);
     }
 }
