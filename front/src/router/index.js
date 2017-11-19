@@ -14,6 +14,9 @@ import Atricle from '../pages/article/main'
 import AtricleList from '../pages/article/list'
 import ArticleAdd from '../pages/article/add'
 import ArticleEdit from '../pages/article/edit'
+
+import Upload from '../pages/upload';
+
 import Error from '@/pages/error'
 Vue.use(Router)
 
@@ -80,6 +83,10 @@ export default new Router({
           redirect:'/article'
         }]
       }, {
+        path:'/upload',
+        name:'Upload',
+        component:Upload
+      },{
         path: '*',
         name: 'Error',
         component: Error

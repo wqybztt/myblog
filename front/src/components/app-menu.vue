@@ -29,6 +29,9 @@
                 },{
                     title:'文章管理',
                     href:'/article'
+                },{
+                    title:'图片上传',
+                    href:'/upload'
                 }]
             }
         }
